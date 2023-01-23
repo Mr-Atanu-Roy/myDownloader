@@ -116,11 +116,12 @@ def ytDownload(request):
             if videoType == 'audio':
                 audio = yt.streams.filter(only_audio=True)
                 itag = audio[0].itag
+                yt.streams.get_by_itag(itag).download()
             else:
                 video = yt.streams.filter(file_extension='mp4')
                 itag = video[0].itag
+                yt.streams.get_by_itag(itag).download()
 
-            yt.streams.get_by_itag(itag).download()
             messages.success(request, "Video Downloaded Successfully" )
             return redirect('home')
         else:
